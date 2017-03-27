@@ -71,6 +71,7 @@ public class CreateGraph {
 				node.setProperty("id", airportsList.get(i)[0]);
 				node.setProperty("name", airportsList.get(i)[1]);
 				node.setProperty("city", airportsList.get(i)[2]);
+				node.setProperty("country", airportsList.get(i)[3]);
 				node.setProperty("code", airportsList.get(i)[4]);
 				node.setProperty("lat", airportsList.get(i)[6]);
 				node.setProperty("lon", airportsList.get(i)[7]);

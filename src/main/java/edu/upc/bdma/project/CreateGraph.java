@@ -107,6 +107,7 @@ public class CreateGraph {
 				tempRoute = routeList.get(i)[2] + "--" + routeList.get(i)[4];
 
 				if (airportFrom != null && airportTo != null) {
+					// Check if this route already exists in the DB
 					if (!routePairs.contains(tempRoute)) {
 						Relationship flights = airportFrom.createRelationshipTo(airportTo, RelationTypes.flights);
 						flights.setProperty("distance", DistanceCalculator.distance(Double.parseDouble(airportFrom.getProperty("lat").toString()), Double.parseDouble(airportFrom.getProperty("lon").toString()), Double.parseDouble(airportTo.getProperty("lat").toString()), Double.parseDouble(airportTo.getProperty("lon").toString()), "K"));

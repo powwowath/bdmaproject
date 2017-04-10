@@ -35,6 +35,7 @@ public class CreateGraph {
 	private static final String GRAPH_DB_DATA_FILE = "graph.db";
 	private static final String AIRPORT_FILE = "airports.dat";
 	private static final String ROUTE_FILE = "routes.dat";
+	private static final String POI_FILE = "pois_filtered.csv";
 
 	enum NodeType implements Label { Airport, Poi }
 	enum RelationTypes implements RelationshipType { flights, has }
@@ -62,7 +63,6 @@ public class CreateGraph {
 			tx = graph.beginTx();
 
 			// Airports
-
 			CSVReader reader = new CSVReader(new FileReader(classLoader.getResource(AIRPORT_FILE).getFile()));
 			List<String[]> airportsList = reader.readAll();
 			reader.close();
@@ -116,6 +116,42 @@ public class CreateGraph {
 				}
 			}
 
+/*
+			// POIs
+			reader = new CSVReader(new FileReader("D:/BigDataManagementAnalytics/Projecte/data/pois.csv"),'|');
+			String [] nextLine;
+
+			HashMap<String, Node> pois = new HashMap<String, Node>();
+
+			int i = 0;
+			while ((nextLine = reader.readNext()) != null ) {
+
+				// Avoid pubs & restaurants
+				if (nextLine[1].equals("7376")) {
+//					if (!nextLine[1].equals("9376") && !nextLine[1].equals("7315") && !nextLine[1].equals("7314") && !nextLine[1].equals("9361") && !nextLine[1].equals("7315")) {
+					if (i != 0) {
+						Node node = null;
+						node = graph.createNode(NodeType.Poi);
+						node.setProperty("id", nextLine[0]);
+						node.setProperty("feattyp", nextLine[1]);
+						node.setProperty("subcat", nextLine[2]);
+						node.setProperty("name", nextLine[3]);
+						node.setProperty("country", nextLine[15]);
+						node.setProperty("lat", nextLine[16]);
+						node.setProperty("lon", nextLine[17]);
+
+						//[0] = ID
+						pois.put(nextLine[0], node);
+					}
+				}
+				if (i%50000==0){
+					System.out.println(i);
+				}
+				i++;
+			}
+			reader.close();
+
+*/
 			tx.success();
 		} catch (IOException e) {
 			// TODO Auto-gen catch block

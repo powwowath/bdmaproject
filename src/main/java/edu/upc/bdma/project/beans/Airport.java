@@ -1,21 +1,26 @@
 package edu.upc.bdma.project.beans;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Created by Gerard
  */
 public class Airport {
     private long id;
-    private String Country;
-    private String Code;
-    private String Name;
-    private String City;
-    private long lon;
-    private long lat;
-    private int nCultural;
-    private int nBeach;
-    private int nMountain;
-    private int nXX;
-
+    private String name;
+    private String city;
+    private String country;
+    private String region;
+    private String code;
+    private Double lon;
+    private Double lat;
+    private long nCultural;
+    private long nBeach;
+    private long nMountain;
+    private long nTourist;
+    private long nNightlife;
+    private Set<String> routes = new HashSet<String>();
 
     public long getId() {
         return id;
@@ -25,52 +30,109 @@ public class Airport {
         this.id = id;
     }
 
-    public String getCountry() {
-        return Country;
-    }
-
-    public void setCountry(String country) {
-        Country = country;
-    }
-
-    public String getCode() {
-        return Code;
-    }
-
-    public void setCode(String code) {
-        Code = code;
-    }
-
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getCity() {
-        return City;
+        return city;
     }
 
     public void setCity(String city) {
-        City = city;
+        this.city = city;
     }
 
-    public long getLon() {
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Double getLon() {
         return lon;
     }
 
-    public void setLon(long lon) {
+    public void setLon(Double lon) {
         this.lon = lon;
     }
 
-    public long getLat() {
+    public Double getLat() {
         return lat;
     }
 
-    public void setLat(long lat) {
+    public void setLat(Double lat) {
         this.lat = lat;
     }
+
+    public long getnCultural() {
+        return nCultural;
+    }
+
+    public void setnCultural(long nCultural) {
+        this.nCultural = nCultural;
+    }
+
+    public long getnBeach() {
+        return nBeach;
+    }
+
+    public void setnBeach(long nBeach) {
+        this.nBeach = nBeach;
+    }
+
+    public long getnMountain() {
+        return nMountain;
+    }
+
+    public void setnMountain(long nMountain) {
+        this.nMountain = nMountain;
+    }
+
+    public long getnTourist() {
+        return nTourist;
+    }
+
+    public void setnTourist(long nTourist) {
+        this.nTourist = nTourist;
+    }
+
+    public long getnNightlife() {
+        return nNightlife;
+    }
+
+    public void setnNightlife(long nNightlife) {
+        this.nNightlife = nNightlife;
+    }
+
+    public Set<String> getRoutes() {
+        return routes;
+    }
+
+    public void setRoutes(Set<String> routes) {
+        this.routes = routes;
+    }
+
 
 }

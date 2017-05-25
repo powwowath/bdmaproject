@@ -6,6 +6,7 @@ package edu.upc.bdma.project.beans;
 public class City {
     private long id;
     private String name;
+    private String country;
     private long nCultural;
     private long nBeach;
     private long nMountain;
@@ -152,5 +153,13 @@ public class City {
 
     public void setPromo(int promo) {
         this.promo = promo;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }

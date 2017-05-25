@@ -10,6 +10,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCursor;
 import edu.upc.bdma.project.beans.Airport;
 import edu.upc.bdma.project.beans.City;
+import edu.upc.bdma.project.utils.DistanceCalculator;
 import org.apache.commons.io.FileUtils;
 import org.bson.Document;
 
@@ -164,13 +165,14 @@ System.out.println("getCities");
             if (city == null) {
                 city = new City();
                 city.setName(airport.getCity());
+                city.setCountry(airport.getCountry());
                 city.setAirportCodes(new String[]{airport.getCode()});
             } else {
                 airportsCodes = new ArrayList<String>(Arrays.asList(city.getAirportCodes()));
                 airportsCodes.add(airport.getCode());
                 city.setAirportCodes(airportsCodes.toArray(new String[airportsCodes.size()]));
             }
-            cities.put(city.getName(), city);
+            cities.put(city.getName()+"_"+city.getCountry(), city);
         }
 
         return cities;
@@ -189,7 +191,7 @@ System.out.println("updateCityPct");
             Map.Entry pair = (Map.Entry) it.next();
             Airport airport = (Airport)pair.getValue();
 
-            City city = cityMap.get(airport.getCity());
+            City city = cityMap.get(airport.getCity()+"_"+airport.getCountry());
             city.setnCultural(city.getnCultural() + airport.getnCultural());
             city.setnBeach(city.getnBeach() + airport.getnBeach());
             city.setnMountain(city.getnMountain() + airport.getnMountain());
@@ -211,7 +213,7 @@ System.out.println("updateCityPct");
                 city.setPctTourist(Math.round(city.getnTourist()*100) / total);
                 city.setPctNightlife(Math.round(city.getnNightlife()*100) / total);
             }
-            cityMap.put(airport.getCity(), city);
+            cityMap.put(airport.getCity()+"_"+airport.getCountry(), city);
         }
 
         return cityMap;
@@ -237,6 +239,7 @@ System.out.println("updateCityPct");
             Node node = graph.createNode(NodeType.City);
             node.setProperty("id", city.getId());
             node.setProperty("name", city.getName());
+            node.setProperty("country", city.getCountry());
             node.setProperty("nCultural", city.getnCultural());
             node.setProperty("nBeach", city.getnBeach());
             node.setProperty("nMountain", city.getnMountain());
@@ -250,7 +253,7 @@ System.out.println("updateCityPct");
             node.setProperty("cost", city.getCost());
             node.setProperty("promo", city.getPromo());
 
-            cityNodes.put(city.getName(), node);
+            cityNodes.put(city.getName()+"_"+city.getCountry(), node);
         }
 
         it = airportMap.entrySet().iterator();
@@ -268,7 +271,7 @@ System.out.println("updateCityPct");
             node.setProperty("lon", airport.getLon());
             node.setProperty("lat", airport.getLat());
 
-            node.createRelationshipTo(cityNodes.get(airport.getCity()), RelationTypes.belongs);
+            node.createRelationshipTo(cityNodes.get(airport.getCity()+"_"+airport.getCountry()), RelationTypes.belongs);
 
             airportNodes.put(airport.getCode(), node);
         }
@@ -284,7 +287,9 @@ System.out.println("updateCityPct");
                 Node nodeDest = airportNodes.get(s);
                 // To avoid relationships with non inserted airports
                 if (nodeDest != null) {
-                    node.createRelationshipTo(nodeDest, RelationTypes.flights);
+                    Relationship rel = node.createRelationshipTo(nodeDest, RelationTypes.flights);
+                    rel.setProperty("distance", DistanceCalculator.distance(Double.parseDouble(node.getProperty("lat").toString()), Double.parseDouble(node.getProperty("lon").toString()), Double.parseDouble(nodeDest.getProperty("lat").toString()), Double.parseDouble(nodeDest.getProperty("lon").toString()), "K"));
+
                 }
             }
         }

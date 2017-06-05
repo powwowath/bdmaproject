@@ -265,6 +265,7 @@ System.out.println("updateCityPct");
             cityNodes.put(city.getName()+"_"+city.getCountry(), node);
         }
 
+
         it = airportMap.entrySet().iterator();
         Airport airport;
         while (it.hasNext()) {

@@ -212,6 +212,13 @@ System.out.println("updateCityPct");
                 city.setPctMountain(Math.round(city.getnMountain()*100) / total);
                 city.setPctTourist(Math.round(city.getnTourist()*100) / total);
                 city.setPctNightlife(Math.round(city.getnNightlife()*100) / total);
+
+                long denom = city.getnNightlife() + city.getnBeach() + city.getnMountain();
+                if (denom > 0){
+                    city.setPctRelax(1 - (city.getnNightlife() / denom));
+                }
+
+                city.setPctYoung(city.getPctBeach()+city.getPctNightlife());
             }
             cityMap.put(airport.getCity()+"_"+airport.getCountry(), city);
         }
@@ -250,6 +257,8 @@ System.out.println("updateCityPct");
             node.setProperty("pctMountain", city.getPctMountain());
             node.setProperty("pctTourist", city.getPctTourist());
             node.setProperty("pctNightlife", city.getPctNightlife());
+            node.setProperty("pctYoung", city.getPctYoung());
+            node.setProperty("pctRelax", city.getPctRelax());
             node.setProperty("cost", city.getCost());
             node.setProperty("promo", city.getPromo());
 

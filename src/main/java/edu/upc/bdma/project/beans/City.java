@@ -18,6 +18,10 @@ public class City {
     private long pctMountain;
     private long pctTourist;
     private long pctNightlife;
+
+    private long pctYoung;
+    private long pctRelax;
+
     private String[] airportCodes;
 
     private int cost; // 0-Low, 1-Regular, 2-High
@@ -161,5 +165,21 @@ public class City {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public long getPctYoung() {
+        return pctYoung;
+    }
+
+    public void setPctYoung(long pctYoung) {
+        this.pctYoung = pctYoung;
+    }
+
+    public long getPctRelax() {
+        return pctRelax;
+    }
+
+    public void setPctRelax(long pctRelax) {
+        this.pctRelax = pctRelax;
     }
 }

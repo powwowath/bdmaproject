@@ -24,6 +24,11 @@ public class filterPois {
             int i = 0;
             while ((nextLine = reader.readNext()) != null) {
                 // Only selected categories
+                // 7376 - Important Tourist Attraction
+                // 9935 - Mountain Pass
+                // 9357 - Beach
+                // 7317 - Museum
+                // 9379 - Nightlife
                 if (nextLine[1].equals("7376") || nextLine[1].equals("9935") || nextLine[1].equals("9357") || nextLine[1].equals("7317") || nextLine[1].equals("9379")) {
                     writer.writeNext(nextLine);
                 }
